@@ -1,6 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
 
+const d = new Date("2016-05-18T11:27:00");
+
 function App() {
   return (
     <div className="App">
@@ -9,6 +11,7 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
+        <p>{d}</p>
         <a
           className="App-link"
           href="https://reactjs.org"
