@@ -40,9 +40,25 @@ export const availabilityData = [
 ];
 
 function checkSlotAvailability(time, jobLength, date, availability) {
-    let status = "AVAILABLE";
-
-    return status;
+  if (time in availability) {
+    if (date !== currentDate) {
+      if ((time === fullyAvailableDay[0])
+        || (time === fullyAvailableDay[fullyAvailableDay.length - 1])) {
+        return "AVAILABLE";
+      }
+      else {
+        return "FULL";
+      }
+    }
+  }
+  else {
+    if (currentDate.getHours() + travelBuffer > time) {
+      return "UNAVAILABLE";
+    }
+    else {
+      return "AVAILABLE";
+    }
+  }
 }    
 
 export const availabilityStatus = availabilityData.map((value, index, array) => {
