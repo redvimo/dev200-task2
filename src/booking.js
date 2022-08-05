@@ -1,10 +1,18 @@
 //booking.js
 
-export let time = 9;
-export let jobLength = 1;
+const minJobLength = 1;
+const maxJobLength = 5;
+const travelBuffer = 1;
+const currentDayBuffer = 2;
+const fullyAvailableDay = [9, 10, 11, 12, 13, 14, 15, 16, 17];
+
+let time = 9;
+let jobLength = 1;
+
 export let currentDate = new Date('2016-05-18T11:27:00');
 
-const availabilityData = [
+
+export const availabilityData = [
   {
     "Date": "2016-05-18",
     "HoursAvailable": [9, 10, 11, 12, 13, 14, 17]
@@ -32,20 +40,16 @@ const availabilityData = [
 ];
 
 function checkSlotAvailability(time, jobLength, date, availability) {
-    return "FULL";
+    let status = "AVAILABLE";
+
+    return status;
 }    
 
 export const availabilityStatus = availabilityData.map((value, index, array) => {
-  let year = new Date(value.Date).getFullYear();
-  let month = new Date(value.Date).getMonth();
-  let date = new Date(value.Date).getDate();
-  let status = "FULL";
-
-  if (year === currentDate.getFullYear()
-    && month === currentDate.getMonth()
-    && date === currentDate.getDate()) {
-      status = checkSlotAvailability(time, jobLength, value.Date, value.HoursAvailable);
-    }
-  return status;
+    let isoDate = new Date(value.Date);
+    let status = fullyAvailableDay.map((_value, _index, _array) => {
+        return checkSlotAvailability(time, jobLength, isoDate, value.HoursAvailable);
+    });
+    
+    return status;
 });
-
